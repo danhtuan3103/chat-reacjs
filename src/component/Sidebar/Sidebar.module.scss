@@ -1,0 +1,140 @@
+.wrapper {
+    --margin-top: 16px;
+    --side-space: 12px;
+    max-width: 300px;
+    background-color: #100b0b;
+    padding: 24px 0;
+    // border-top-right-radius: 12px;
+    // border-bottom-right-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    // resize: horizontal;
+}
+
+.header {
+    margin: 0 var(--side-space);
+    display: flex;
+    align-items: center;
+    .logo {
+        font-size: 2.6rem;
+        flex: 1;
+        font-family: fantasy;
+        color: var(--primary);
+    }
+
+    .plus {
+        font-size: 2.4rem;
+        margin-right: 8px;
+    }
+    .dot-menu {
+        font-size: 2.4rem;
+        margin-right: -10px;
+    }
+}
+
+.icon {
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--secondary);
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.search {
+    margin: 0 var(--side-space);
+    margin-top: var(--margin-top);
+    padding: 0 8px;
+    background-color: #ffffff66;
+    border-radius: 4px;
+
+    height: 36px;
+    display: flex;
+    align-items: center;
+
+    .glass-btn {
+        margin-right: 8px;
+        color: #100b0b;
+    }
+    .input {
+        width: 100%;
+        font-size: 1.3rem;
+        flex: 1;
+        background-color: transparent;
+    }
+
+    &:hover,
+    &:focus-within {
+        background-color: #ffffff;
+    }
+}
+
+.tools {
+    margin: 0 var(--side-space);
+    margin-top: var(--margin-top);
+
+    display: flex;
+    justify-content: space-between;
+
+    .icon {
+        font-size: 2.2rem;
+    }
+}
+
+.mes-list {
+    margin-top: var(--margin-top);
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 6px var(--side-space);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    cursor: default;
+
+    .avatar {
+        border-radius: 50%;
+        width: 50px;
+        object-fit: cover;
+        margin-right: 8px;
+    }
+
+    &:hover {
+        background-color: #333;
+    }
+    .text-box {
+        margin-right: 8px;
+        flex: 1;
+        max-width: 180px;
+        .name {
+            color: var(--white);
+            font-size: 1.4rem;
+        }
+
+        .content {
+            color: var(--white);
+            font-size: 1.2rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+    .mes-count {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary);
+        border-radius: 50%;
+        font-size: 1.2rem;
+        // color: var(--black);
+    }
+}
+
+.message.active {
+    background-color: #333;
+}

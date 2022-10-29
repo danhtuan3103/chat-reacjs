@@ -1,0 +1,155 @@
+.wrapper {
+    width: 230px;
+    min-width: 130px;
+    background-color: black;
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: 0.15s ease-in-out;
+}
+
+.open {
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 70px;
+    bottom: 50px;
+    min-width: 0px;
+    width: 5px;
+    border-radius: 12px;
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+
+    * {
+        display: none;
+    }
+
+    // .logout {
+    //     display: block;
+    // }
+}
+.header {
+    display: flex;
+    justify-content: end;
+}
+
+.icon.close-btn {
+    font-size: 2.6rem;
+    color: var(--white);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--secondary);
+    }
+}
+
+.user {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .avatar {
+        width: 80px;
+        border-radius: 99999px;
+        object-fit: cover;
+    }
+
+    .name {
+        margin-top: 8px;
+        color: var(--white);
+        font-size: 1.6rem;
+    }
+    .description {
+        padding: 0 4px;
+        font-size: 1.2rem;
+        text-align: center;
+        font-family: 'Helvetica Neue', Helvetica, Arial;
+        color: #535252;
+    }
+}
+
+.info {
+    margin-top: 24px;
+    padding: 0 4px;
+    color: var(--white);
+}
+
+.info-contains {
+    display: flex;
+    margin-top: 4px;
+    .icon {
+        font-size: 1.6rem;
+        margin-right: 8px;
+    }
+
+    .text {
+        flex: 1;
+        font-size: 1.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #535252;
+    }
+}
+
+.suggest {
+    margin-top: 24px;
+    h3 {
+        color: var(--white);
+        font-size: 1.2rem;
+    }
+}
+
+.suggest-accounts {
+    margin-top: 8px;
+    display: flex;
+    overflow: hidden;
+}
+
+.account {
+    margin-right: 8px;
+    width: 35px;
+    height: 35px;
+    border-radius: 999px;
+    object-fit: cover;
+    position: relative;
+}
+
+.account:last-child {
+    &::before {
+        content: '3';
+        border-radius: 999px;
+        position: absolute;
+        width: 100%;
+        background-color: #fff;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 24px);
+    height: 40px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    background-color: var(--primary);
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
