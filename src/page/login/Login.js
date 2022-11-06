@@ -29,7 +29,7 @@ function Login() {
             password: state.password,
         };
         axios
-            .post('http://localhost:4000/api/user/login', data)
+            .post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, data)
             .then((response) => {
                 dispatch(login(response.data));
                 path ? navigate(path) : navigate('/messenger');

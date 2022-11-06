@@ -15,7 +15,7 @@ const ChatRoom = React.lazy(() => import('./page/chat/ChatRoom'));
 // const Groups = React.lazy(() => import('./component/Sidebar/groups'));
 function App() {
     const { user, onlineUsers, room, conversation } = useSelector((state) => state);
-
+    console.log(process.env.REACT_APP_BASE_URL);
     console.log(user, room, conversation);
     return (
         <Router>

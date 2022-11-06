@@ -12,7 +12,7 @@ function Friends() {
     const users = useSelector((state) => state.onlineUsers) || [];
     const handleClick = (target) => {
         axios
-            .post(`http://localhost:4000/api/conversation`, {
+            .post(`${process.env.REACT_APP_BASE_URL}/api/conversation`, {
                 self: user.email,
                 target: target.email,
             })

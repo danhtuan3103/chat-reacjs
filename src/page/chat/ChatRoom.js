@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateStateSocket } from '../../redux/action';
 const cx = classNames.bind(styles);
-const socket = io('http://localhost:4000');
+const socket = io(process.env.REACT_APP_BASE_URL);
 function ChatRoom() {
     const dispatch = useDispatch();
     const { user, room } = useSelector((state) => state);

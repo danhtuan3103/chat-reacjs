@@ -27,7 +27,7 @@ function Register() {
                 avatar: 'https://geheugenvanoost.amsterdam/image/2019/3/28/custom_avatar_oost.png%28%29%28A1AA9718B0A7004BA9DA7BBE5B7A6C4C%29.jpg',
             };
             axios
-                .post('http://localhost:4000/api/user/register', data)
+                .post(`${process.env.REACT_APP_BASE_URL}/api/user/register`, data)
                 .then(function (response) {
                     alert(response.data.message);
                     console.log(response.data);

@@ -61,7 +61,7 @@ function ChatBox({ socket }) {
             setInput('');
             setMessages((prev) => [...prev, { sender: user.email, content: input, time: new Date() }]);
             await axios
-                .post('http://localhost:4000/api/conversation/send', {
+                .post(`${process.env.REACT_APP_BASE_URL}/api/conversation/send`, {
                     room: conversation.id,
                     content: input,
                     sender: user.email,

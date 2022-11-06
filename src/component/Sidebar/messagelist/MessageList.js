@@ -10,7 +10,7 @@ function MessageList() {
     console.log(list);
     useEffect(() => {
         axios
-            .post(`http://localhost:4000/api/conversation/all`, { email: user.email })
+            .post(`${process.env.REACT_APP_BASE_URL}/api/conversation/all`, { email: user.email })
             .then((res) => {
                 setList(res.data.data);
             })
