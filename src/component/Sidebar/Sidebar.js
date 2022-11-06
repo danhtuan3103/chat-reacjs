@@ -5,11 +5,9 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { BsSearch, BsClockHistory } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { RiContactsBookFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useEffect } from 'react';
-
+import { NavLink, Outlet } from 'react-router-dom';
 const cx = classNames.bind(styles);
+
 function Sidebar({}) {
     return (
         <div className={cx('wrapper')}>
@@ -25,38 +23,17 @@ function Sidebar({}) {
             </div>
 
             <div className={cx('tools')}>
-                <Link to="/messenger">
+                <NavLink to="/messenger" className={({ isActive }) => (isActive ? cx('active') : cx(''))} end>
                     <BsClockHistory className={cx('icon')} />
-                </Link>
-                <Link to="/messenger/friends">
+                </NavLink>
+                <NavLink to="/messenger/friends" className={({ isActive }) => (isActive ? cx('active') : cx(''))}>
                     <FaUserFriends className={cx('icon')} />
-                </Link>
-                <Link to="/messenger/groups">
+                </NavLink>
+                <NavLink to="/messenger/groups" className={({ isActive }) => (isActive ? cx('active') : cx(''))}>
                     <RiContactsBookFill className={cx('icon')} />
-                </Link>
+                </NavLink>
             </div>
-
-            <div className={cx('mes-list')}>
-                {[1, 2, 3, 5].map((index) => {
-                    return (
-                        <div className={cx('message')} key={index}>
-                            <img
-                                className={cx('avatar')}
-                                src="https://lh3.googleusercontent.com/ogw/AOh-ky3OZiMns8YiFwJ_1T-VTzVKcR6SmqArV6i6me4wVA=s64-c-mo"
-                                alt="avatar"
-                            />
-                            <div className={cx('text-box')}>
-                                <h4 className={cx('name')}>Danh Tuan</h4>
-                                <p className={cx('content')}>
-                                    Hello ! How are you Hello ! How are youHello ! How are you
-                                </p>
-                            </div>
-
-                            <span className={cx('mes-count')}>3</span>
-                        </div>
-                    );
-                })}
-            </div>
+            <Outlet />
         </div>
     );
 }

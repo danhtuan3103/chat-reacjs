@@ -1,7 +1,8 @@
 .wrapper {
     --margin-top: 16px;
     --side-space: 12px;
-    max-width: 300px;
+    min-width: 200px;
+    width: 300px;
     background-color: #100b0b;
     padding: 24px 0;
     // border-top-right-radius: 12px;
@@ -80,61 +81,24 @@
     .icon {
         font-size: 2.2rem;
     }
-}
 
-.mes-list {
-    margin-top: var(--margin-top);
-    display: flex;
-    flex-direction: column;
-}
-
-.message {
-    padding: 6px var(--side-space);
-    display: flex;
-    align-items: center;
-    border-radius: 4px;
-    cursor: default;
-
-    .avatar {
-        border-radius: 50%;
-        width: 50px;
-        object-fit: cover;
-        margin-right: 8px;
+    a {
+        width: 100%;
+        padding: 4px;
+        margin: 0 4px;
+        padding: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
     }
-
-    &:hover {
+    a.active {
         background-color: #333;
     }
-    .text-box {
-        margin-right: 8px;
-        flex: 1;
-        max-width: 180px;
-        .name {
-            color: var(--white);
-            font-size: 1.4rem;
-        }
-
-        .content {
-            color: var(--white);
-            font-size: 1.2rem;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-    }
-    .mes-count {
-        width: 18px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--secondary);
-        border-radius: 50%;
-        font-size: 1.2rem;
-        // color: var(--black);
-    }
 }
 
-.message.active {
-    background-color: #333;
+@media screen and (max-width: 480px) {
+    .wrapper {
+        flex: 1;
+    }
 }

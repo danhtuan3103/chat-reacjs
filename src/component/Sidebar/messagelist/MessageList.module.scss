@@ -1,0 +1,73 @@
+.mes-list {
+    margin-top: var(--margin-top);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.message {
+    padding: 6px var(--side-space);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+
+    .avatar {
+        border-radius: 50%;
+        width: 50px;
+        object-fit: cover;
+        margin-right: 8px;
+    }
+
+    &:hover {
+        background-color: #333;
+    }
+    .text-box {
+        margin-right: 8px;
+        flex: 1;
+        overflow: hidden;
+        .name {
+            color: var(--white);
+            font-size: 1.4rem;
+        }
+
+        .content {
+            color: var(--white);
+            font-size: 1.2rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+    .mes-count {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary);
+        border-radius: 50%;
+        font-size: 1.2rem;
+        // color: var(--black);
+    }
+}
+
+.message.active {
+    background-color: #333;
+}
+
+@media screen and (max-width: 480px) {
+    .mes-list {
+        padding: 0 12px;
+    }
+
+    // .message {
+    //     width: 100%;
+
+    //     .text-box {
+    //         max-width: 300px;
+    //     }
+    // }
+}

@@ -4,3 +4,9 @@
     height: 100vh;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 480px) {
+    .nothing {
+        display: none;
+    }
+}

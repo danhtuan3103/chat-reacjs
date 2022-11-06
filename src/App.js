@@ -4,12 +4,19 @@ import Error from './page/error/Error';
 import { ProtectedRoutes } from './auth/ProtectedRoutes';
 import { useSelector } from 'react-redux';
 import Loading from './component/loading/Loading';
+import MessageList from './component/Sidebar/messagelist';
+import Friends from './component/Sidebar/friends';
+import Groups from './component/Sidebar/groups';
+import ChatBox from './component/ChatBox/ChatBox';
 const Login = React.lazy(() => import('./page/login/Login'));
 const Register = React.lazy(() => import('./page/register/Register'));
 const ChatRoom = React.lazy(() => import('./page/chat/ChatRoom'));
+// const Friends = React.lazy(() => import('./component/Sidebar/friends'));
+// const Groups = React.lazy(() => import('./component/Sidebar/groups'));
 function App() {
-    const user = useSelector((state) => state.user);
-    console.log(user);
+    const { user, onlineUsers, room, conversation } = useSelector((state) => state);
+
+    console.log(user, room, conversation);
     return (
         <Router>
             <Routes>
@@ -58,23 +65,25 @@ function App() {
                             </Suspense>
                         </ProtectedRoutes>
                     }
-                />
-                <Route
-                    path="messenger/friends"
-                    element={
-                        <ProtectedRoutes>
-                            <ChatRoom />
-                        </ProtectedRoutes>
-                    }
-                />
-                <Route
-                    path="messenger/groups"
-                    element={
-                        <ProtectedRoutes>
-                            <ChatRoom />
-                        </ProtectedRoutes>
-                    }
-                />
+                >
+                    <Route
+                        index
+                        element={
+                            <ProtectedRoutes>
+                                <MessageList />
+                            </ProtectedRoutes>
+                        }
+                    />
+                    <Route path="friends" element={<Friends />} />
+                    <Route
+                        path="groups"
+                        element={
+                            <ProtectedRoutes>
+                                <Groups />
+                            </ProtectedRoutes>
+                        }
+                    />
+                </Route>
             </Routes>
         </Router>
     );

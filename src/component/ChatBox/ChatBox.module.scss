@@ -60,6 +60,8 @@
 .icon {
     font-size: 1.8rem;
 }
+
+// Messages Box
 .messages {
     height: calc(100% - 54px - 50px);
     display: flex;
@@ -121,6 +123,22 @@
     }
 }
 
+.admin-mes {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+    .avatar {
+        display: none;
+    }
+    .text {
+        color: var(--white);
+    }
+    .time {
+    }
+}
+
+// Footer
 .footer {
     display: flex;
     background-color: #ffffff;
@@ -150,5 +168,11 @@
     .icon {
         color: var(--secondary);
         font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        display: none;
     }
 }

@@ -5,19 +5,49 @@ import io from 'socket.io-client';
 import Sidebar from '../../component/Sidebar/Sidebar';
 import ChatBox from '../../component/ChatBox/ChatBox';
 import Info from '../../component/Info/Info';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-const socket = io.connect('https://realtime-chatapp-nodejs-01.herokuapp.com/');
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateStateSocket } from '../../redux/action';
 const cx = classNames.bind(styles);
-const room = 'chat1';
+const socket = io('http://localhost:4000');
 function ChatRoom() {
-    const user = useSelector((state) => state.user);
-    socket.emit('join_room', room);
+    const dispatch = useDispatch();
+    const { user, room } = useSelector((state) => state);
+
+    useEffect(() => {
+        socket.emit('new_visitor', user);
+        socket.emit('join_room', room);
+
+        return () => {
+            socket.off('connect');
+            socket.off('disconnect');
+            socket.off('new_visitor');
+            socket.off('join_room');
+        };
+    }, []);
+
+    useEffect(() => {}, [room]);
+
+    useEffect(() => {
+        socket.on('visitors', (data) => {
+            const users = data.filter((us) => us.email !== user.email);
+            dispatch(updateStateSocket({ users: users }));
+        });
+        socket.on('update', (data) => {
+            const users = data.filter((us) => us.email !== user.email);
+            dispatch(updateStateSocket({ users: users }));
+        });
+
+        return () => {
+            socket.off('visitor');
+            socket.off('update');
+        };
+    }, [socket]);
 
     return (
         <div className={cx('wrapper')}>
             <Sidebar />
-            <ChatBox socket={socket} room={room} />
+            {room ? <ChatBox socket={socket} /> : <div className={cx('nothing')}>Nothing</div>}
             <Info />
         </div>
     );

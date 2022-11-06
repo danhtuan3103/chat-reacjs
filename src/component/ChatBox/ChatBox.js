@@ -7,16 +7,22 @@ import { FiSend } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { useState, useRef, useEffect } from 'react';
 import moment from 'moment';
+import axios from 'axios';
 const cx = classNames.bind(styles);
 const avatar =
     'https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/281723778_1738067096540255_1829283551838044847_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=S0jiRdRstioAX8ebZz7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfAQGWMwhMZJ9TwCZF8HmNYxSFZjslV700KnrylQIrqWzw&oe=63628AFC';
-function ChatBox({ socket, room }) {
-    const user = useSelector((state) => state.user);
+function ChatBox({ socket }) {
+    const { user, conversation, room } = useSelector((state) => state);
     const [input, setInput] = useState('');
     const refInput = useRef();
     const refScroll = useRef();
-    const message = [];
-    const [messages, setMessages] = useState(message);
+    const [messages, setMessages] = useState(() => {
+        if (conversation && conversation.message) {
+            return conversation.message;
+        } else {
+            return [];
+        }
+    });
     useEffect(() => {
         if (refScroll.current) {
             refScroll.current.scrollIntoView({
@@ -26,19 +32,46 @@ function ChatBox({ socket, room }) {
             });
         }
     }, [messages]);
+
     useEffect(() => {
         socket.on('receive_message', (data) => {
             setMessages((prev) => [...prev, data]);
         });
+
+        return () => {
+            socket.off('receive_message');
+        };
     }, [socket]);
+
+    useEffect(() => {
+        setMessages(conversation.message);
+    }, [conversation]);
     const handleSubmit = async (e) => {
         if (input !== '') {
-            await socket.emit('send_message', { room: room, avatar: user.avatar, message: input, class: 'other-mes' });
+            if (room) {
+                await socket.emit('send_message', {
+                    room: room.target.id,
+                    content: input,
+                    sender: user.email,
+                });
+            } else {
+                alert('Select room');
+                return;
+            }
             setInput('');
-            setMessages((prev) => [
-                ...prev,
-                { avatar: user.avatar, message: input, class: 'own-mes', time: new Date() },
-            ]);
+            setMessages((prev) => [...prev, { sender: user.email, content: input, time: new Date() }]);
+            await axios
+                .post('http://localhost:4000/api/conversation/send', {
+                    room: conversation.id,
+                    content: input,
+                    sender: user.email,
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     };
     const handleKeyDown = (e) => {
@@ -59,7 +92,7 @@ function ChatBox({ socket, room }) {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <span className={cx('dot')}></span>
-                <h2 className={cx('name')}>Lang Manh Hung</h2>
+                <h2 className={cx('name')}>{room.target.name || ''}</h2>
                 <span className={cx('icon-box')}>
                     <BsFillTelephoneFill className={cx('icon', 'phone')} />
                 </span>
@@ -70,12 +103,16 @@ function ChatBox({ socket, room }) {
             <div className={cx('messages')}>
                 {messages.map((mes, key) => {
                     return (
-                        <div key={key} className={cx(mes.class, 'mes')}>
+                        <div key={key} className={cx(mes.sender === user.email ? 'own-mes' : 'other-mes', 'mes')}>
                             <div>
-                                <img className={cx('avatar')} src={mes.avatar} alt="own" />
+                                <img
+                                    className={cx('avatar')}
+                                    src={mes.sender === user.email ? user.avatar : room.target.avatar}
+                                    alt="own"
+                                />
                                 <p className={cx('time')}>{moment(mes.time).format('hh:mm:ss')}</p>
                             </div>
-                            <p className={cx('text')}>{mes.message}</p>
+                            <p className={cx('text')}>{mes.content}</p>
                         </div>
                     );
                 })}

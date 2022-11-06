@@ -18,7 +18,7 @@ function Info() {
     const user = useSelector((state) => state.user);
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/login');
+        window.location.href = '/login';
     };
     const INFO = [
         { icon: BsHouse, text: 'Bu Dang, Binh Phuoc' },

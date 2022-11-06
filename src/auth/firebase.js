@@ -26,7 +26,6 @@ export const signInWithGoogle = (path) => {
             const name = result.user.displayName;
             const email = result.user.email;
             const avatar = result.user.photoURL;
-
             cookies.set('USER_INFO', { name, email, avatar });
             window.location.href = path ? path : '/messenger';
         })
